@@ -1,4 +1,13 @@
 <template>
+    <div class="row justify-content-end">
+      <div class ="col-2">
+        <a href="/pais">
+          <button type="button" class="btn btn-outline-secondary float-roght">
+            Agregar país
+          </button>
+        </a>
+      </div>
+    </div>
     <div class="container mt-5">
       <h1 class="display-4 text-center">Lista de países</h1>
       <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
@@ -26,6 +35,7 @@
   </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "ListaPaises",
   data() {
@@ -42,8 +52,19 @@ export default {
   methods: {
     borrar(index) {
         this.paises.splice(index, 1);
-    }
-  }
+    },
+    obtenerTareas() {
+      axios.get("https://localhost:7000/api/Paises").then(
+      (response) => {
+      this.paises = response.data;
+    });
+  },
+  },
+
+  created: function () {
+    this.obtenerTareas();
+  },
+
 };
 </script>
 
